@@ -61,7 +61,7 @@ def login(request, template_name="lfs/customer/login.html"):
         login_form.fields["username"].label = _(u"E-Mail")
 
         if login_form.is_valid():
-            redirect_to = request.POST.get("next")
+            redirect_to = request.POST.get("next") 
             # Light security check -- make sure redirect_to isn't garbage.
             if not redirect_to or '//' in redirect_to or ' ' in redirect_to:
                 redirect_to = reverse("lfs_shop_view")
@@ -78,10 +78,15 @@ def login(request, template_name="lfs/customer/login.html"):
 
             email = register_form.data.get("email")
             password = register_form.data.get("password_1")
+            first_name=register_form.data.get("first_name")
+            last_name=register_form.data.get("last_name")
 
             # Create user
             user = User.objects.create_user(
                 username=email, email=email, password=password)
+            user.first_name=first_name
+            user.last_name=last_name
+            user.save()
 
             # Create customer
             customer = customer_utils.get_or_create_customer(request)
@@ -210,7 +215,7 @@ def account(request, template_name="lfs/customer/account.html"):
 def addresses(request, template_name="lfs/customer/addresses.html"):
     """Provides a form to edit addresses and bank account.
     """
-    customer = lfs.customer.utils.get_customer(request)
+    customer = customer_utils.get_customer(request)
     shop = lfs.core.utils.get_default_shop(request)
 
     if request.method == "POST":

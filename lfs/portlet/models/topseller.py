@@ -14,7 +14,7 @@ import lfs.marketing.utils
 
 
 class TopsellerPortlet(Portlet):
-    """Portlet to display recent visited products.
+    """Portlet to display top sold products.
     """
     limit = models.IntegerField(default=5)
 
@@ -22,7 +22,7 @@ class TopsellerPortlet(Portlet):
         app_label = 'portlet'
 
     def __unicode__(self):
-        return "%s" % self.id
+        return u"%s" % self.id
 
     def render(self, context):
         """Renders the portlet as html.

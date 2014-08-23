@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 
 # lfs imports
-from lfs.customer.models import Address
+from .models import Address
 from lfs.core.models import Country
 from lfs.core.models import Shop
 from lfs.customer.models import CreditCard
